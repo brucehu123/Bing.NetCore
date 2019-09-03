@@ -1,6 +1,7 @@
 ﻿using System;
 using Bing.Datas.Dapper.Handlers;
 using Bing.Datas.Dapper.MySql;
+using Bing.Datas.Dapper.Oracle;
 using Bing.Datas.Dapper.PgSql;
 using Bing.Datas.Dapper.SqlServer;
 using Bing.Datas.Enums;
@@ -91,7 +92,7 @@ namespace Bing.Datas.Dapper
             services.AddTransient<ISqlQuery, SqlQuery>();
             services.TryAddScoped<ITableDatabase, DefaultTableDatabase>();
             AddSqlBuilder(services, config);
-            RegisterTypeHandlers();
+            RegisterTypeHandlers(config);
             return services;
         }
 
@@ -113,6 +114,9 @@ namespace Bing.Datas.Dapper
                 case DatabaseType.PgSql:
                     services.AddTransient<ISqlBuilder, PgSqlBuilder>();
                     return;
+                case DatabaseType.Oracle:
+                    services.AddTransient<ISqlBuilder, OracleBuilder>();
+                    return;
                 default:
                     throw new NotImplementedException($"Sql生成器未实现 {config.DatabaseType.Description()} 数据库");
             }
@@ -121,9 +125,11 @@ namespace Bing.Datas.Dapper
         /// <summary>
         /// 注册类型处理器
         /// </summary>
-        private static void RegisterTypeHandlers()
+        private static void RegisterTypeHandlers(SqlOptions config)
         {
             SqlMapper.AddTypeHandler(typeof(string), new StringTypeHandler());
+            if(config.DatabaseType==DatabaseType.Oracle)
+                SqlMapper.AddTypeHandler(new GuidTypeHandler());
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <VersionMajor>0</VersionMajor>
-    <VersionMinor>0</VersionMinor>
+    <VersionMajor>1</VersionMajor>
+    <VersionMinor>1</VersionMinor>
     <VersionPatch>1</VersionPatch>
-    <VersionQuality>20190605-1</VersionQuality>
+    <VersionQuality></VersionQuality>
+    <!--<VersionQuality>20190816-1</VersionQuality>-->
     <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
-    <VersionSuffix>preview-$(VersionQuality)</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
+    <!--<VersionSuffix>preview-$(VersionQuality)</VersionSuffix>-->
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,7 +33,7 @@
     <OutputPath>$(MSBuildThisFileDirectory)/../output/$(Configuration)/</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <PackageReference Include="Microsoft.Net.Compilers" Version="2.*" Condition=" '$(OS)' == 'Windows_NT' ">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -41,6 +43,6 @@
     <PackageReference Include="IDisposableAnalyzers" Version="2.*">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

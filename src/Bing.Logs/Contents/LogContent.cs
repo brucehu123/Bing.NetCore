@@ -10,7 +10,7 @@ namespace Bing.Logs.Contents
     /// <summary>
     /// 日志内容
     /// </summary>
-    public class LogContent : ILogContent, ICaption,ILogConvert
+    public class LogContent : ILogContent, ICaption, ILogConvert
     {
         #region 属性
 
@@ -23,6 +23,11 @@ namespace Bing.Logs.Contents
         /// 日志级别
         /// </summary>
         public string Level { get; set; }
+
+        /// <summary>
+        /// 日志标识
+        /// </summary>
+        public string LogId { get; set; }
 
         /// <summary>
         /// 跟踪号

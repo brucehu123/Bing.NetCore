@@ -1,5 +1,4 @@
-﻿using System;
-using Bing.Helpers;
+﻿using Bing.Helpers;
 using Bing.Logs.Abstractions;
 using Bing.Logs.Contents;
 using Bing.Logs.Core;
@@ -193,7 +192,7 @@ namespace Bing.Logs
             }
             catch
             {
-                return Security.Sessions.Session.Instance;
+                return Bing.Sessions.Session.Instance;
             }
         }
     }

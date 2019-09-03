@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
+using AspectCore.Extensions.DependencyInjection;
+using Bing.AspNetCore;
 using Bing.AutoMapper;
 using Bing.Biz.Payments.Extensions;
 using Bing.EasyCaching;
@@ -9,7 +11,9 @@ using Bing.Extensions.Swashbuckle.Configs;
 using Bing.Extensions.Swashbuckle.Core;
 using Bing.Extensions.Swashbuckle.Extensions;
 using Bing.Extensions.Swashbuckle.Filters.Operations;
+using Bing.Logs.Exceptionless;
 using Bing.Logs.Log4Net;
+using Bing.Core;
 using Bing.Logs.NLog;
 using Bing.Logs.Serilog;
 using Bing.Samples.Api.OAuths;
@@ -76,8 +80,8 @@ namespace Bing.Samples.Api
 
             //services.AddExceptionless(options =>
             //{
-            //    options.ApiKey = "YDTOG4uvUuEd5BY7uQozsUjaZcPyGz99OE6jNLmp";
-            //    options.ServerUrl = "";
+            //    options.ApiKey = "5K9YStkK1AUMz5FrWLtZghEcBEUGPuU1UoRjVp47";
+            //    options.ServerUrl = "http://192.168.0.66:65000";
             //});
             //services.AddSerilog();
 
@@ -142,7 +146,12 @@ namespace Bing.Samples.Api
                 }).WithJson();
             });
 
-            return services.AddBing();
+            services.AddUploadService();
+            services.AddApiInterfaceService();
+            //return services.AddBing();
+            services.AddBing<AspNetCoreBingModuleManager>();
+            //return services.BuildServiceProvider();
+            return services.BuildDynamicProxyServiceProvider();
         }
 
         /// <summary>
@@ -272,6 +281,7 @@ namespace Bing.Samples.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            Bing.Utils.Helpers.Web.Environment = env;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -279,6 +289,7 @@ namespace Bing.Samples.Api
 
             CommonConfig(app);
             app.UseSwaggerCustom(CurrentSwaggerOptions);
+            app.UseBing();
         }
 
         /// <summary>
@@ -317,7 +328,7 @@ namespace Bing.Samples.Api
             ProjectName = "Bing.Samples.Api 在线文档调试",
             UseCustomIndex = true,
             RoutePrefix = "swagger",
-            ApiVersions = new List<string>() { "v1" },
+            ApiVersions = new List<ApiVersion>() { new ApiVersion() { Version = "v1"} },
             SwaggerAuthorizations = new List<CustomSwaggerAuthorization>()
             {
             },

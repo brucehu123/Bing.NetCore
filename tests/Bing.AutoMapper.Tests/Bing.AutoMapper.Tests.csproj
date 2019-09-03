@@ -7,7 +7,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bing.Applications\Bing.Applications.csproj" />
     <ProjectReference Include="..\..\src\Bing.AutoMapper\Bing.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\src\Bing.Mapster\Bing.Mapster.csproj" />
     <ProjectReference Include="..\..\src\Bing\Bing.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Update="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

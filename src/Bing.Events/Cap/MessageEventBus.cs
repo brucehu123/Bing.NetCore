@@ -5,6 +5,7 @@ using Bing.Events.Messages;
 using Bing.Logs;
 using Bing.Logs.Extensions;
 using DotNetCore.CAP;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bing.Events.Cap
 {
@@ -39,7 +40,6 @@ namespace Bing.Events.Cap
         /// </summary>
         /// <typeparam name="TEvent">事件类型</typeparam>
         /// <param name="event">事件</param>
-        /// <returns></returns>
         public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IMessageEvent
         {
             return PublishAsync(@event.Name, @event.Data, @event.Callback, @event.Send);
@@ -52,22 +52,29 @@ namespace Bing.Events.Cap
         /// <param name="data">事件数据</param>
         /// <param name="callback">回调名称</param>
         /// <param name="send">是否立即发送消息</param>
-        /// <returns></returns>
         public async Task PublishAsync(string name, object data, string callback = null, bool send = false)
         {
+            var capTransaction = GetCapTransaction();
             if (send)
             {
-                Publisher.Transaction.AutoCommit = true;
+                capTransaction.AutoCommit = true;
+                Publisher.Transaction.Value = capTransaction;
                 await InternalPublishAsync(name, data, callback);
                 return;
             }
             TransactionActionManager.Register(async transaction =>
             {
-                Publisher.Transaction.DbTransaction = transaction;
-                Publisher.Transaction.AutoCommit = false;
+                capTransaction.DbTransaction = transaction;
+                capTransaction.AutoCommit = false;
+                Publisher.Transaction.Value = capTransaction;
                 await InternalPublishAsync(name, data, callback);
             });
         }
+
+        /// <summary>
+        /// 获取CAP事务
+        /// </summary>
+        private CapTransactionBase GetCapTransaction() => Publisher.ServiceProvider.GetService<CapTransactionBase>();
 
         /// <summary>
         /// 发布事件

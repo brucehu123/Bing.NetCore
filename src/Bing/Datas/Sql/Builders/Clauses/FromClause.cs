@@ -51,7 +51,7 @@ namespace Bing.Datas.Sql.Builders.Clauses
         /// <param name="register">实体别名注册器</param>
         /// <param name="tableDatabase">表数据库</param>
         /// <param name="table">表</param>
-        public FromClause(ISqlBuilder builder,IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register,ITableDatabase tableDatabase, SqlItem table = null)
+        public FromClause(ISqlBuilder builder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register,ITableDatabase tableDatabase, SqlItem table = null)
         {
             Builder = builder;
             Dialect = dialect;
@@ -66,14 +66,10 @@ namespace Bing.Datas.Sql.Builders.Clauses
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        /// <returns></returns>
         public virtual IFromClause Clone(ISqlBuilder builder, IEntityAliasRegister register)
         {
             if (register != null)
-            {
                 register.FromType = Register.FromType;
-            }
-
             return new FromClause(builder, Dialect, Resolver, register, TableDatabase, Table);
         }
 
@@ -93,7 +89,6 @@ namespace Bing.Datas.Sql.Builders.Clauses
         /// <param name="table">表名</param>
         /// <param name="schema">架构名</param>
         /// <param name="alias">别名</param>
-        /// <returns></returns>
         protected virtual SqlItem CreateSqlItem(string table, string schema, string alias)
         {
             return new SqlItem(table, schema, alias);
