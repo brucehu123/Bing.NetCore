@@ -2,7 +2,8 @@
 using Bing.AspNetCore.Mvc;
 using Bing.AspNetCore.Uploads;
 using Bing.AspNetCore.Uploads.Params;
-using Bing.Webs.Controllers;
+using Bing.Helpers;
+using Bing.Webs.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Bing.Samples.Api.Controllers
     /// <summary>
     /// 测试控制器
     /// </summary>
-    public class TestController : ApiControllerBase
+    public class TestController : Bing.AspNetCore.Mvc.ApiControllerBase
     {
         /// <summary>
         /// 文件上传服务
@@ -54,6 +55,7 @@ namespace Bing.Samples.Api.Controllers
         /// <summary>
         /// 获取所有控制器
         /// </summary>
+        [AntiDuplicateRequest(Interval = 1)]
         [HttpGet("getAllController")]
         public virtual Task<IActionResult> GetAllControllerAsync()
         {
@@ -67,6 +69,16 @@ namespace Bing.Samples.Api.Controllers
         public Task<IActionResult> GetAllActionAsync()
         {
             return Task.FromResult(Success(_apiInterfaceService.GetAllAction()));
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        [HttpGet("getParam")]
+        public Task<IActionResult> GetParamAsync()
+        {
+            var result = Web.GetParam("aaa");
+            return Task.FromResult(Success(result));
         }
     }
 }

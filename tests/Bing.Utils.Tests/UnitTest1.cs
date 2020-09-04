@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bing.Utils.Extensions;
-using Bing.Utils.Helpers;
+using Bing.Extensions;
+using Bing.Helpers;
+using Bing.IO;
+using Bing.Tests;
 using Bing.Utils.IdGenerators.Core;
-using Bing.Utils.IO;
 using Bing.Utils.Json;
 using Xunit;
 using Xunit.Abstractions;
+using FileHelper = Bing.IO.FileHelper;
 
 namespace Bing.Utils.Tests
 {
@@ -515,6 +517,36 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
         {
             var result = $"{1000.01877:0.##}";
             Output.WriteLine(result);
+        }
+
+
+        [Fact]
+        public void Test_ToObject()
+        {
+            var json= "[{\"Text\":\"寸\",\"Value\":\"00000002\",\"SortId\":1,\"Group\":\"尺寸\"}]";
+            var items = JsonHelper.ToObject<List<Item>>(json);
+            foreach (var item in items)
+            {
+                Output.WriteLine($"Text: {item.Text}, Value: {item.Value}, SortId: {item.SortId}, Group: {item.Group}, Disabled: {item.Disabled}");
+            }
+        }
+
+        [Fact]
+        public void Test_Tuple_IsNull()
+        {
+            var list = new List<Tuple<int, decimal>>()
+            {
+                new Tuple<int, decimal>(1, 20), new Tuple<int, decimal>(2, 20),
+            };
+            var item = list.FirstOrDefault(x => x.Item1 == 3);
+            Assert.Equal(default, item);
+        }
+
+        [Fact]
+        public void Test_Regex()
+        {
+            var result= Regex.IsMatch("AutoMapper", "^AutoMapper", RegexOptions.IgnoreCase | RegexOptions.Compiled) == false;
+            Output.WriteLine(result.ToString());
         }
     }
 

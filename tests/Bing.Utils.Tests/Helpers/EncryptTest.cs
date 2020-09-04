@@ -1,5 +1,8 @@
 ﻿using System.Text;
-using Bing.Utils.Extensions;
+using Bing.Extensions;
+using Bing.Helpers;
+using Bing.Tests;
+using Bing.Extensions;
 using Bing.Utils.Helpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,8 +12,11 @@ namespace Bing.Utils.Tests.Helpers
     /// <summary>
     /// 加密操作测试
     /// </summary>
-    public class EncryptTest:TestBase
+    public class EncryptTest : TestBase
     {
+        /// <summary>
+        /// 初始化一个<see cref="EncryptTest"/>类型的实例
+        /// </summary>
         public EncryptTest(ITestOutputHelper output) : base(output)
         {
         }
@@ -70,7 +76,7 @@ namespace Bing.Utils.Tests.Helpers
             const double value = 100.123;
             var encode = Encrypt.DesEncrypt(value);
             Output.WriteLine(encode);
-            Assert.Equal(value.SafeString(),Encrypt.DesDecrypt(encode));
+            Assert.Equal(value.SafeString(), Encrypt.DesDecrypt(encode));
         }
 
         /// <summary>
@@ -79,7 +85,7 @@ namespace Bing.Utils.Tests.Helpers
         [Fact]
         public void Test_Des_2()
         {
-            const string value= @"~!@#$%^&*()_+|,./;[]'{}""}{?>:<> \\ qwe测 *试rtyuiopadE15R3JrMnByS3c9sdfghjklzxcvbnm1234567890-=\";
+            const string value = @"~!@#$%^&*()_+|,./;[]'{}""}{?>:<> \\ qwe测 *试rtyuiopadE15R3JrMnByS3c9sdfghjklzxcvbnm1234567890-=\";
             var encode = Encrypt.DesEncrypt(value);
             Output.WriteLine(encode);
             Assert.Equal(value, Encrypt.DesDecrypt(encode));
@@ -129,7 +135,7 @@ namespace Bing.Utils.Tests.Helpers
         [InlineData(null, "", "")]
         [InlineData("", "", "")]
         [InlineData("1", "", "")]
-        public void Test_RsaSign_Validate(string input,string key,string result)
+        public void Test_RsaSign_Validate(string input, string key, string result)
         {
             Assert.Equal(result, Encrypt.RsaSign(input, key, Encoding.UTF8));
             Assert.Equal(result, Encrypt.Rsa2Sign(input, key, Encoding.UTF8));
@@ -258,16 +264,16 @@ namespace Bing.Utils.Tests.Helpers
         /// 测试SHA1加密
         /// </summary>
         [Theory]
-        [InlineData(null,"")]
-        [InlineData("","")]
-        [InlineData(" ","")]
+        [InlineData(null, "")]
+        [InlineData("", "")]
+        [InlineData(" ", "")]
         [InlineData("a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")]
         [InlineData("中国", "101806f57c322fb403a9788c4c24b79650d02e77")]
         [InlineData("123456", "7c4a8d09ca3762af61e59520943dc26494f8941b")]
         public void Test_Sha1(string input, string result)
         {
             Output.WriteLine($"input:{input},result:{Encrypt.Sha1(input)}");
-            Assert.Equal(result,Encrypt.Sha1(input));
+            Assert.Equal(result, Encrypt.Sha1(input));
         }
 
         /// <summary>
@@ -327,7 +333,7 @@ namespace Bing.Utils.Tests.Helpers
             const string value = "123456";
             var encode = Encrypt.Base64Encrypt(value);
             Output.WriteLine(encode);
-            Assert.Equal(value,Encrypt.Base64Decrypt(encode));
+            Assert.Equal(value, Encrypt.Base64Decrypt(encode));
         }
     }
 }

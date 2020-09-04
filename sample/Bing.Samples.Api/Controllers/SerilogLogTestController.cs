@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Bing.Logs;
-using Bing.Logs.Extensions;
 using Bing.Webs.Controllers;
 using Microsoft.AspNetCore.Mvc;
 

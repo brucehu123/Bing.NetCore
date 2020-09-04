@@ -5,13 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Bing.Events\Bing.Events.csproj" />
-    <ProjectReference Include="..\..\src\Bing.Utils\Bing.Utils.csproj" />
-    <ProjectReference Include="..\..\src\Bing\Bing.csproj" />
+    <PackageReference Include="EasyCaching.InMemory" Version="0.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dependency\" />
+    <ProjectReference Include="..\..\src\Bing.AutoMapper\Bing.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\src\Bing.EasyCaching\Bing.EasyCaching.csproj" />
+    <ProjectReference Include="..\..\src\Bing.Events\Bing.Events.csproj" />
+    <ProjectReference Include="..\..\src\Bing.Utils\Bing.Utils.csproj" />
+    <ProjectReference Include="..\..\src\Bing\Bing.csproj" />
+    <ProjectReference Include="..\Bing.Tests.Samples\Bing.Tests.Samples.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +23,7 @@
     <PackageReference Update="MessagePack" Version="1.7.3.7" />
     <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Update="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Update="Microsoft.Net.Compilers" Version="3.3.1" />
   </ItemGroup>
 
 </Project>

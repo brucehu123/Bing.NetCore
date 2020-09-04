@@ -1,26 +1,10 @@
 ﻿using System.Collections.Generic;
-using Autofac;
-using Bing.Dependency;
 using Bing.Helpers;
 using Bing.Tests.Samples;
 using Xunit;
 
 namespace Bing.Tests.Helpers
 {
-    /// <summary>
-    /// Ioc配置
-    /// </summary>
-    public class TestIocConfig : ConfigBase
-    {
-        /// <summary>
-        /// 加载配置
-        /// </summary>
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.AddScoped<ISample, Sample>();
-        }
-    }
-
     /// <summary>
     /// Ioc测试
     /// </summary>
@@ -31,7 +15,6 @@ namespace Bing.Tests.Helpers
         /// </summary>
         public IocTest()
         {
-            Ioc.Register(new TestIocConfig());
         }
 
         /// <summary>
@@ -52,19 +35,6 @@ namespace Bing.Tests.Helpers
         {
             var sample = Ioc.Create<ISample>(typeof(ISample));
             Assert.NotNull(sample);
-        }
-
-        /// <summary>
-        /// 测试作用域
-        /// </summary>
-        [Fact]
-        public void TestScope()
-        {
-            using (var scope = Ioc.BeginScope())
-            {
-                var sample = scope.Create<ISample>();
-                Assert.NotNull(sample);
-            }
         }
 
         /// <summary>

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Bing.Logs;
 using Bing.Logs.Abstractions;
-using Bing.Logs.Extensions;
 using Bing.Webs.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +10,7 @@ namespace Bing.Samples.Api.Controllers
     /// 日志工厂
     /// </summary>
     [Route("api/[controller]/[action]")]
-    public class LogFactoryController:ApiControllerBase
+    public class LogFactoryController : ApiControllerBase
     {
         /// <summary>
         /// 日志工厂

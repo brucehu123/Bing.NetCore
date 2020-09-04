@@ -12,15 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bing.Utils.Drawing\Bing.Utils.Drawing.csproj" />
     <ProjectReference Include="..\..\src\Bing.Utils\Bing.Utils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Configs\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Update="Configs\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\Bing.Tests.Samples\Bing.Tests.Samples.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +21,8 @@
     <PackageReference Update="MessagePack" Version="1.7.3.7" />
     <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Update="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Update="Microsoft.Net.Compilers" Version="3.3.1" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

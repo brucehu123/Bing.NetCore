@@ -4,6 +4,7 @@ using Bing.Datas.Sql.Matedatas;
 using Bing.Datas.Test.Integration.Samples;
 using Bing.Utils.Helpers;
 using Xunit;
+using Str = Bing.Helpers.Str;
 
 namespace Bing.Datas.Test.Integration.Sql.Builders.SqlServer
 {
@@ -108,6 +109,25 @@ namespace Bing.Datas.Test.Integration.Sql.Builders.SqlServer
         }
 
         /// <summary>
+        /// 求和 - lambda表达式 - 默认别名
+        /// </summary>
+        [Fact]
+        public void Test_Sum_3()
+        {
+            //结果
+            var result = new Str();
+            result.AppendLine("Select Sum([DoubleValue]) As [DoubleValue] ");
+            result.Append("From [b]");
+
+            //执行
+            _builder.Sum<Sample>(t => t.DoubleValue)
+                .From("b");
+
+            //验证
+            Assert.Equal(result.ToString(), _builder.ToSql());
+        }
+
+        /// <summary>
         /// 求平均值
         /// </summary>
         [Fact]
@@ -139,6 +159,25 @@ namespace Bing.Datas.Test.Integration.Sql.Builders.SqlServer
 
             //执行
             _builder.Avg<Sample>(t => t.DoubleValue, "a")
+                .From("b");
+
+            //验证
+            Assert.Equal(result.ToString(), _builder.ToSql());
+        }
+
+        /// <summary>
+        /// 求平均值 - lambda表达式 - 默认别名
+        /// </summary>
+        [Fact]
+        public void Test_Avg_3()
+        {
+            //结果
+            var result = new Str();
+            result.AppendLine("Select Avg([DoubleValue]) As [DoubleValue] ");
+            result.Append("From [b]");
+
+            //执行
+            _builder.Avg<Sample>(t => t.DoubleValue)
                 .From("b");
 
             //验证
@@ -184,6 +223,25 @@ namespace Bing.Datas.Test.Integration.Sql.Builders.SqlServer
         }
 
         /// <summary>
+        /// 求最大值 - lambda表达式 - 默认别名
+        /// </summary>
+        [Fact]
+        public void Test_Max_3()
+        {
+            //结果
+            var result = new Str();
+            result.AppendLine("Select Max([DoubleValue]) As [DoubleValue] ");
+            result.Append("From [b]");
+
+            //执行
+            _builder.Max<Sample>(t => t.DoubleValue)
+                .From("b");
+
+            //验证
+            Assert.Equal(result.ToString(), _builder.ToSql());
+        }
+
+        /// <summary>
         /// 求最小值
         /// </summary>
         [Fact]
@@ -215,6 +273,25 @@ namespace Bing.Datas.Test.Integration.Sql.Builders.SqlServer
 
             //执行
             _builder.Min<Sample>(t => t.DoubleValue, "a")
+                .From("b");
+
+            //验证
+            Assert.Equal(result.ToString(), _builder.ToSql());
+        }
+
+        /// <summary>
+        /// 求最小值 - lambda表达式 - 默认别名
+        /// </summary>
+        [Fact]
+        public void Test_Min_3()
+        {
+            //结果
+            var result = new Str();
+            result.AppendLine("Select Min([DoubleValue]) As [DoubleValue] ");
+            result.Append("From [b]");
+
+            //执行
+            _builder.Min<Sample>(t => t.DoubleValue)
                 .From("b");
 
             //验证
